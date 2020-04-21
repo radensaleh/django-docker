@@ -10,8 +10,8 @@ services:
       - "8000:8000"
     depends_on:
       - db
-    # networks:
-    #   - backend
+    networks:
+      - backend
   db:
     image: postgres:12.0-alpine
     ports:
@@ -22,11 +22,12 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=admin
       - POSTGRES_DB=EmployeeDB
-    # networks:
-    #   -backend
+    networks:
+      - backend
 
 volumes:
   postgres_data:
-# networks:
-#   backend:
-#     driver: bridge
+
+networks:
+  backend:
+    driver: bridge
