@@ -1,0 +1,32 @@
+version: "3.7"
+
+services:
+  web:
+    build: .
+    command: python3 manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/django-docker
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    # networks:
+    #   - backend
+  db:
+    image: postgres:12.0-alpine
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data/
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=EmployeeDB
+    # networks:
+    #   -backend
+
+volumes:
+  postgres_data:
+# networks:
+#   backend:
+#     driver: bridge
